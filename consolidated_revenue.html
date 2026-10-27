@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consolidated Revenue & Payouts — StayTransit Financial Admin</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .math-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+    .badge-overdue-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #FEE2E2;
+      color: #B91C1C;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid #FCA5A5;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="brand-logo" title="StayTransit"></a>
+        <button class="collapse-btn" title="Toggle Sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <div class="context-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Financial Administration</span>
+          <span class="context-tag">Console</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-primary" onclick="alert('Exporting consolidated revenue & payout ledger...')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Export Ledger</span>
+        </button>
+        <div class="user-profile-badge">
+          <div class="user-avatar">FA</div>
+          <div class="user-meta">
+            <span class="user-name">Finance Admin</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-wrapper">
+      <!-- Sidebar (Consolidated 3 Navigation Links: Completed Payout is removed and merged here) -->
+      <aside class="sidebar">
+        <div class="sidebar-heading">Financial Admin</div>
+        <a href="index.html" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+          <span>Daily Revenue</span>
+        </a>
+        <a href="consolidated_revenue.html" class="nav-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          <span>Consolidated Revenue</span>
+        </a>
+        <a href="wallet_transaction.html" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+            <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/>
+            <path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/>
+            <circle cx="18" cy="14" r="1"/>
+          </svg>
+          <span>Wallet Transaction</span>
+        </a>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content-area">
+        <!-- Page Title & Segmented Switcher -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>Consolidated Revenue &amp; Payouts</h1>
+            <p>Unified cross-merchant financial settlement, Global Tax reporting, ST Commission auditing, and Payout lifecycle management.</p>
+          </div>
+          <div class="segmented-control">
+            <button class="segment-btn active" id="tab-merchant">
+              <span>Merchant Settlement</span>
+              <span class="segment-badge">6</span>
+            </button>
+            <button class="segment-btn" id="tab-partner">
+              <span>Partner Settlement</span>
+              <span class="segment-badge">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Automatic Payout Summary Ribbon (Auto-Display Pending, Completed, Next Due, and Overdue) -->
+        <div class="kpi-grid">
+          <!-- Total Payout Pending -->
+          <div class="kpi-card">
+            <div class="kpi-card-top">
+              <span class="kpi-label">Total Payout Pending</span>
+              <div class="kpi-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value">$605.25</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 16 Q 36 12, 72 8" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill neutral">2 payouts pending</span>
+              <span>awaiting settlement</span>
+            </div>
+          </div>
+
+          <!-- Total Payout Completed -->
+          <div class="kpi-card">
+            <div class="kpi-card-top">
+              <span class="kpi-label">Total Payout Completed</span>
+              <div class="kpi-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value">$1,379.25</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 20 Q 30 16, 50 10 T 72 4" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill up">3 completed</span>
+              <span>settled to merchants</span>
+            </div>
+          </div>
+
+          <!-- Next Due Payout Date -->
+          <div class="kpi-card">
+            <div class="kpi-card-top">
+              <span class="kpi-label">Next Due Payout Date</span>
+              <div class="kpi-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value" style="font-size: 22px;">28 Oct 2026</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 12 L 72 12" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill neutral">In 1 day</span>
+              <span>Lounge Over Dubai</span>
+            </div>
+          </div>
+
+          <!-- Overdue Payouts (Prominently Highlighted) -->
+          <div class="kpi-card overdue-alert">
+            <div class="kpi-card-top">
+              <span class="kpi-label" style="display: flex; align-items: center; gap: 4px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.5">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                Overdue Payouts
+              </span>
+              <div class="kpi-card-icon" style="background: #FEE2E2; border-color: #FCA5A5; color: #B91C1C;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value" style="color: #B91C1C;">$425.25</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 6 Q 36 12, 72 18" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill down">1 overdue</span>
+              <span style="color: #B91C1C; font-weight: 600;">Immediate action required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter and Search Toolbar with Payout Status Tabs -->
+        <div class="filter-bar" style="flex-wrap: wrap;">
+          <!-- Payout Status Filter Tabs -->
+          <div class="payout-status-filters" id="payoutStatusFilters">
+            <button class="status-filter-btn active" data-filter="all">
+              <span>All</span>
+              <span class="filter-count">6</span>
+            </button>
+            <button class="status-filter-btn" data-filter="pending">
+              <span>Pending</span>
+              <span class="filter-count">2</span>
+            </button>
+            <button class="status-filter-btn" data-filter="scheduled">
+              <span>Scheduled</span>
+              <span class="filter-count">1</span>
+            </button>
+            <button class="status-filter-btn" data-filter="completed">
+              <span>Completed</span>
+              <span class="filter-count">3</span>
+            </button>
+            <button class="status-filter-btn overdue-tab" data-filter="overdue">
+              <span>Overdue</span>
+              <span class="filter-count">1</span>
+            </button>
+          </div>
+
+          <!-- Search Box -->
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search by booking ID, merchant name, status..." onkeyup="filterTable()">
+          </div>
+
+          <!-- Date Range Picker -->
+          <button class="date-range-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B5563" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>20-10-2026 - 27-10-2026</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Consolidated Revenue & Payout Data Table -->
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="data-table" id="consolidatedTable">
+              <thead>
+                <tr>
+                  <th>BOOKING ID</th>
+                  <th>MERCHANT NAME</th>
+                  <th>BOOKING DATE</th>
+                  <th style="text-align: right;">PACKAGE PRICE</th>
+                  <th style="text-align: right;">PACKAGE TAX</th>
+                  <th style="text-align: right;">GLOBAL TAX</th>
+                  <th style="text-align: right;">ST COMMISSION</th>
+                  <th style="text-align: right;">MERCHANT PAYOUT</th>
+                  <th>PAYOUT STATUS</th>
+                  <th>DUE DATE</th>
+                  <th>PAYOUT DATE</th>
+                  <th style="text-align: right;">ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Row 1: Overdue Payout (Exclusive Tax calculation demo) -->
+                <tr data-status="overdue">
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill red"></span>
+                      <span class="text-mono text-dark">#BK-89012</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Dubai Lay off Landside</td>
+                  <td>24-10-2026</td>
+                  <td style="text-align: right;" class="text-dark">$450.00</td>
+                  <td style="text-align: right;">
+                    $22.50 <span class="tax-chip exclusive" title="Exclusive Tax: included in commission base">Excl.</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax: for reporting only, excluded from ST Commission & Payout">
+                    $15.00
+                  </td>
+                  <td style="text-align: right;">
+                    <span class="text-dark">$47.25</span>
+                    <span class="math-hint">10% of ($450+$22.50)</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold text-dark" style="color: #B91C1C;">
+                    $425.25
+                    <span class="math-hint">Excl. Global Tax</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-overdue">Overdue</span>
+                  </td>
+                  <td>
+                    <span class="badge-overdue-pill">25-10-2026 (Past Due)</span>
+                  </td>
+                  <td><span class="text-muted">—</span></td>
+                  <td style="text-align: right;">
+                    <div class="actions-cell">
+                      <button class="btn-payout-action" onclick="openPayoutModal('#BK-89012', 'Dubai Lay off Landside', 425.25, 450.00, 22.50, 'Exclusive', 15.00, 47.25, this)">
+                        Payout Now
+                      </button>
+                      <button class="btn-payout-history" title="View Payout History" onclick="openHistoryModal('#BK-89012', 'Dubai Lay off Landside', '$425.25', 'Overdue', '25-10-2026', '—')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        History
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 2: Pending Payout (Inclusive Tax calculation demo) -->
+                <tr data-status="pending">
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill amber"></span>
+                      <span class="text-mono text-dark">#BK-89013</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Lounge Over Dubai</td>
+                  <td>26-10-2026</td>
+                  <td style="text-align: right;" class="text-dark">$200.00</td>
+                  <td style="text-align: right;">
+                    $10.00 <span class="tax-chip inclusive" title="Inclusive Tax: calculated only on package price">Incl.</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold">
+                    $8.00
+                  </td>
+                  <td style="text-align: right;">
+                    <span class="text-dark">$20.00</span>
+                    <span class="math-hint">10% of $200.00</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold text-dark">
+                    $180.00
+                    <span class="math-hint">Excl. Global Tax</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-pending">Pending</span>
+                  </td>
+                  <td class="text-dark">28-10-2026</td>
+                  <td><span class="text-muted">—</span></td>
+                  <td style="text-align: right;">
+                    <div class="actions-cell">
+                      <button class="btn-payout-action" onclick="openPayoutModal('#BK-89013', 'Lounge Over Dubai', 180.00, 200.00, 10.00, 'Inclusive', 8.00, 20.00, this)">
+                        Payout
+                      </button>
+                      <button class="btn-payout-history" title="View Payout History" onclick="openHistoryModal('#BK-89013', 'Lounge Over Dubai', '$180.00', 'Pending', '28-10-2026', '—')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        History
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 3: Scheduled Payout (Exclusive Tax demo) -->
+                <tr data-status="scheduled">
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill blue"></span>
+                      <span class="text-mono text-dark">#BK-89014</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Holiday Inn Express</td>
+                  <td>25-10-2026</td>
+                  <td style="text-align: right;" class="text-dark">$300.00</td>
+                  <td style="text-align: right;">
+                    $15.00 <span class="tax-chip exclusive" title="Exclusive Tax">Excl.</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold">
+                    $10.00
+                  </td>
+                  <td style="text-align: right;">
+                    <span class="text-dark">$31.50</span>
+                    <span class="math-hint">10% of ($300+$15)</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold text-dark">
+                    $283.50
+                    <span class="math-hint">Excl. Global Tax</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-scheduled">Scheduled</span>
+                  </td>
+                  <td>30-10-2026</td>
+                  <td><span class="text-muted">—</span></td>
+                  <td style="text-align: right;">
+                    <div class="actions-cell">
+                      <button class="btn-payout-secondary" onclick="openScheduleModal('#BK-89014', 'Holiday Inn Express', '30-10-2026', '$283.50')">
+                        Details
+                      </button>
+                      <button class="btn-payout-history" title="View Payout History" onclick="openHistoryModal('#BK-89014', 'Holiday Inn Express', '$283.50', 'Scheduled', '30-10-2026', '—')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        History
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 4: Completed Payout (Inclusive Tax demo) -->
+                <tr data-status="completed">
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill green"></span>
+                      <span class="text-mono text-dark">#BK-89015</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Le Méridien Dubai Hotel</td>
+                  <td>24-10-2026</td>
+                  <td style="text-align: right;" class="text-dark">$500.00</td>
+                  <td style="text-align: right;">
+                    $25.00 <span class="tax-chip inclusive">Incl.</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold">
+                    $18.00
+                  </td>
+                  <td style="text-align: right;">
+                    <span class="text-dark">$50.00</span>
+                    <span class="math-hint">10% of $500.00</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold text-dark" style="color: #059669;">
+                    $450.00
+                    <span class="math-hint">Settled via Online</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-completed">Completed</span>
+                  </td>
+                  <td>26-10-2026</td>
+                  <td class="text-dark">26-10-2026</td>
+                  <td style="text-align: right;">
+                    <div class="actions-cell">
+                      <button class="btn-payout-secondary" onclick="openReceiptModal('#BK-89015', 'Le Méridien Dubai Hotel', '$450.00', '26-10-2026')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                        Receipt
+                      </button>
+                      <button class="btn-payout-history" title="View Payout History" onclick="openHistoryModal('#BK-89015', 'Le Méridien Dubai Hotel', '$450.00', 'Completed', '26-10-2026', '26-10-2026')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        History
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 5: Completed Payout (Exclusive Tax demo) -->
+                <tr data-status="completed">
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill green"></span>
+                      <span class="text-mono text-dark">#BK-89016</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Dubai International Hotel</td>
+                  <td>23-10-2026</td>
+                  <td style="text-align: right;" class="text-dark">$650.00</td>
+                  <td style="text-align: right;">
+                    $32.50 <span class="tax-chip exclusive">Excl.</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold">
+                    $22.00
+                  </td>
+                  <td style="text-align: right;">
+                    <span class="text-dark">$68.25</span>
+                    <span class="math-hint">10% of ($650+$32.50)</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold text-dark" style="color: #059669;">
+                    $614.25
+                    <span class="math-hint">Settled via Online</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-completed">Completed</span>
+                  </td>
+                  <td>25-10-2026</td>
+                  <td class="text-dark">25-10-2026</td>
+                  <td style="text-align: right;">
+                    <div class="actions-cell">
+                      <button class="btn-payout-secondary" onclick="openReceiptModal('#BK-89016', 'Dubai International Hotel', '$614.25', '25-10-2026')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                        Receipt
+                      </button>
+                      <button class="btn-payout-history" title="View Payout History" onclick="openHistoryModal('#BK-89016', 'Dubai International Hotel', '$614.25', 'Completed', '25-10-2026', '25-10-2026')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        History
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Row 6: Completed Payout (Inclusive Tax demo) -->
+                <tr data-status="completed">
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill green"></span>
+                      <span class="text-mono text-dark">#BK-89017</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Sri Krishna Airport Services</td>
+                  <td>22-10-2026</td>
+                  <td style="text-align: right;" class="text-dark">$350.00</td>
+                  <td style="text-align: right;">
+                    $17.50 <span class="tax-chip inclusive">Incl.</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold">
+                    $12.00
+                  </td>
+                  <td style="text-align: right;">
+                    <span class="text-dark">$35.00</span>
+                    <span class="math-hint">10% of $350.00</span>
+                  </td>
+                  <td style="text-align: right;" class="text-bold text-dark" style="color: #059669;">
+                    $315.00
+                    <span class="math-hint">Settled via Online</span>
+                  </td>
+                  <td>
+                    <span class="badge badge-completed">Completed</span>
+                  </td>
+                  <td>24-10-2026</td>
+                  <td class="text-dark">24-10-2026</td>
+                  <td style="text-align: right;">
+                    <div class="actions-cell">
+                      <button class="btn-payout-secondary" onclick="openReceiptModal('#BK-89017', 'Sri Krishna Airport Services', '$315.00', '24-10-2026')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                          <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                        Receipt
+                      </button>
+                      <button class="btn-payout-history" title="View Payout History" onclick="openHistoryModal('#BK-89017', 'Sri Krishna Airport Services', '$315.00', 'Completed', '24-10-2026', '24-10-2026')">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        History
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination & Audit Footer -->
+          <div class="table-footer">
+            <span class="showing-entries" id="recordCountText">Showing 1 - 6 of 6 payout records</span>
+            <div class="pagination-controls">
+              <div class="rows-dropdown">
+                <span>Rows</span>
+                <strong>10</strong>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </div>
+              <div class="page-buttons">
+                <button class="page-btn bordered" disabled>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                  </svg>
+                </button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn bordered" disabled>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Payout Settlement Modal -->
+  <div class="modal-overlay" id="payoutModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E02424" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+          <h3 class="modal-title">Initiate Merchant Disbursement</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('payoutModal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 11px; color: #6B7280; font-weight: 500;">MERCHANT</div>
+            <div style="font-size: 14px; font-weight: 700; color: #111827;" id="modalMerchantName">Dubai Lay off Landside</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 11px; color: #6B7280; font-weight: 500;">BOOKING ID</div>
+            <div style="font-size: 13px; font-family: monospace; font-weight: 600; color: #374151;" id="modalBookingId">#BK-89012</div>
+          </div>
+        </div>
+
+        <!-- Financial Calculation Breakdown per BR-01 to BR-07 -->
+        <div style="font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;">
+          Calculation & Tax Verification
+        </div>
+        <div style="border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #F3F4F6; font-size: 13px;">
+            <span style="color: #6B7280;">Package Price:</span>
+            <span style="font-weight: 600; color: #111827;" id="modalPkgPrice">$450.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #F3F4F6; font-size: 13px;">
+            <span style="color: #6B7280;">Package Tax (<span id="modalTaxType">Exclusive</span>):</span>
+            <span style="font-weight: 600; color: #111827;" id="modalPkgTax">$22.50</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #F3F4F6; font-size: 13px; background: #FFFDF5;">
+            <span style="color: #6B7280; display: flex; align-items: center; gap: 4px;">
+              Global Tax (BR-03/06):
+              <span style="font-size: 10px; background: #FEF3C7; color: #92400E; padding: 1px 5px; border-radius: 3px; font-weight: 600;">Reporting Only</span>
+            </span>
+            <span style="font-weight: 600; color: #92400E;" id="modalGlobalTax">$15.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #F3F4F6; font-size: 13px;">
+            <span style="color: #6B7280;">ST Commission (BR-04/05):</span>
+            <span style="font-weight: 600; color: #DC2626;" id="modalCommission">-$47.25</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 10px 12px; font-size: 14px; background: #F0FDF4; font-weight: 700;">
+            <span style="color: #166534;">Net Merchant Payout (BR-07):</span>
+            <span style="color: #166534; font-size: 16px;" id="modalPayoutAmount">$425.25</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 6px;">Disbursement Channel</label>
+          <select style="width: 100%; height: 38px; border: 1px solid #D1D5DB; border-radius: 6px; padding: 0 10px; font-size: 13px; background: #FFFFFF; color: #111827;">
+            <option>Direct Bank Wire (IBAN: AE29 0330 0000 0012 3456 789)</option>
+            <option>Instant Payout Gateway (Faster Payments)</option>
+            <option>Automated Corporate Clearing (ACH)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 6px;">Reference / Note</label>
+          <input type="text" value="ST-PAY-DISBURSE-OCT26" style="width: 100%; height: 38px; border: 1px solid #D1D5DB; border-radius: 6px; padding: 0 10px; font-size: 13px; color: #374151;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-payout-secondary" onclick="closeModal('payoutModal')">Cancel</button>
+        <button class="btn-payout-action" onclick="confirmDisbursement()" style="padding: 8px 16px; font-size: 13px;">
+          Confirm & Disburse Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payout History & Audit Trail Modal -->
+  <div class="modal-overlay" id="historyModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <h3 class="modal-title">Payout Settlement History</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('historyModal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 11px; color: #6B7280; font-weight: 500;">TARGET PAYOUT</div>
+            <div style="font-size: 15px; font-weight: 700; color: #111827;" id="histMerchant">Dubai Lay off Landside</div>
+            <div style="font-size: 12px; color: #6B7280;" id="histBooking">#BK-89012</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 11px; color: #6B7280; font-weight: 500;">SETTLEMENT AMOUNT</div>
+            <div style="font-size: 18px; font-weight: 800; color: #111827;" id="histAmount">$425.25</div>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.04em;">
+          Payout Lifecycle & Audit Logs
+        </div>
+
+        <div class="timeline">
+          <!-- Step 1 -->
+          <div class="timeline-item">
+            <div class="timeline-dot completed"></div>
+            <div class="timeline-content">
+              <div class="timeline-heading">Booking Completed & Checkout Verified</div>
+              <div class="timeline-sub">Booking confirmed via StayTransit consumer portal</div>
+              <div class="timeline-meta">System captured Package Price and Package Tax.</div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="timeline-item">
+            <div class="timeline-dot completed"></div>
+            <div class="timeline-content">
+              <div class="timeline-heading">Finance Calculation Executed</div>
+              <div class="timeline-sub">Global Tax & ST Commission Engine applied</div>
+              <div class="timeline-meta">
+                • <strong>Global Tax</strong> recorded for reporting (BR-01, BR-03)<br>
+                • <strong>Income Tax</strong> removed from reporting (BR-02)<br>
+                • <strong>ST Commission</strong> calculated based on tax inclusivity (BR-04, BR-05)<br>
+                • <strong>Merchant Payout</strong> finalized excluding Global Tax (BR-06, BR-07)
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="timeline-item">
+            <div class="timeline-dot completed"></div>
+            <div class="timeline-content">
+              <div class="timeline-heading">Scheduled Payout Due Date Assigned</div>
+              <div class="timeline-sub" id="histDueDateText">Payout SLA Due Date: 25-10-2026</div>
+              <div class="timeline-meta" id="histStatusNote">Settlement queue updated in Consolidated Revenue Dashboard (BR-08, BR-09).</div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="timeline-item">
+            <div class="timeline-dot" id="histStep4Dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-heading" id="histStep4Heading">Disbursement Settlement</div>
+              <div class="timeline-sub" id="histStep4Sub">Awaiting final disbursement confirmation</div>
+              <div class="timeline-meta" id="histStep4Meta">Disbursement method ready for batch processing.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-payout-secondary" onclick="closeModal('historyModal')">Close History</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Voucher Modal -->
+  <div class="modal-overlay" id="receiptModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <h3 class="modal-title">Disbursement Settlement Receipt</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('receiptModal')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center; padding: 12px 0 20px;">
+          <div style="width: 48px; height: 48px; background: #ECFDF5; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div style="font-size: 18px; font-weight: 700; color: #111827;">Disbursement Completed</div>
+          <div style="font-size: 13px; color: #6B7280;">Funds successfully settled to merchant account</div>
+        </div>
+
+        <div style="border: 1px dashed #D1D5DB; border-radius: 8px; padding: 16px; background: #F9FAFB;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px;">
+            <span style="color: #6B7280;">Voucher Ref:</span>
+            <span style="font-weight: 600; font-family: monospace;">ST-VCH-2026-90415</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px;">
+            <span style="color: #6B7280;">Merchant:</span>
+            <span style="font-weight: 600;" id="rcptMerchant">Le Méridien Dubai Hotel</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px;">
+            <span style="color: #6B7280;">Booking Ref:</span>
+            <span style="font-weight: 600;" id="rcptBooking">#BK-89015</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px;">
+            <span style="color: #6B7280;">Disbursed On:</span>
+            <span style="font-weight: 600;" id="rcptDate">26-10-2026</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid #E5E7EB; font-size: 15px; font-weight: 700;">
+            <span style="color: #111827;">Total Settled:</span>
+            <span style="color: #059669;" id="rcptAmount">$450.00</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-payout-secondary" onclick="window.print()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          Print Voucher
+        </button>
+        <button class="btn-payout-secondary" onclick="closeModal('receiptModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State Variables for Live Payout Processing
+    let activeDisburseRow = null;
+
+    // Filter Handler for Status Tabs (All, Pending, Scheduled, Completed, Overdue)
+    const filterButtons = document.querySelectorAll('.status-filter-btn');
+    const tableRows = document.querySelectorAll('#consolidatedTable tbody tr');
+    const recordCountText = document.getElementById('recordCountText');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filterValue = btn.getAttribute('data-filter');
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+          const rowStatus = row.getAttribute('data-status');
+          if (filterValue === 'all' || rowStatus === filterValue) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        recordCountText.textContent = `Showing 1 - ${visibleCount} of ${visibleCount} filtered payout records`;
+      });
+    });
+
+    // Real-time Search Box
+    function filterTable() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      let visibleCount = 0;
+
+      tableRows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        if (text.includes(input)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      recordCountText.textContent = `Showing ${visibleCount} matching records`;
+    }
+
+    // Modal Operations
+    function openPayoutModal(bookingId, merchant, amount, pkgPrice, pkgTax, taxType, globalTax, commission, triggerBtn) {
+      activeDisburseRow = triggerBtn ? triggerBtn.closest('tr') : null;
+      document.getElementById('modalBookingId').textContent = bookingId;
+      document.getElementById('modalMerchantName').textContent = merchant;
+      document.getElementById('modalPkgPrice').textContent = '$' + pkgPrice.toFixed(2);
+      document.getElementById('modalPkgTax').textContent = '$' + pkgTax.toFixed(2);
+      document.getElementById('modalTaxType').textContent = taxType;
+      document.getElementById('modalGlobalTax').textContent = '$' + globalTax.toFixed(2);
+      document.getElementById('modalCommission').textContent = '-$' + commission.toFixed(2);
+      document.getElementById('modalPayoutAmount').textContent = '$' + amount.toFixed(2);
+      document.getElementById('payoutModal').classList.add('active');
+    }
+
+    function openHistoryModal(bookingId, merchant, amount, status, dueDate, payoutDate) {
+      document.getElementById('histMerchant').textContent = merchant;
+      document.getElementById('histBooking').textContent = bookingId;
+      document.getElementById('histAmount').textContent = amount;
+      document.getElementById('histDueDateText').textContent = 'Payout Due Date: ' + dueDate;
+      
+      const dot4 = document.getElementById('histStep4Dot');
+      const head4 = document.getElementById('histStep4Heading');
+      const sub4 = document.getElementById('histStep4Sub');
+      const meta4 = document.getElementById('histStep4Meta');
+
+      if (status === 'Completed') {
+        dot4.className = 'timeline-dot completed';
+        head4.textContent = 'Disbursement Completed & Settled';
+        sub4.textContent = 'Disbursed on ' + payoutDate + ' via Online Banking';
+        meta4.textContent = 'Reference: ST-TXN-' + Math.floor(100000 + Math.random() * 900000) + ' | Settlement SLA Met.';
+      } else if (status === 'Overdue') {
+        dot4.className = 'timeline-dot active';
+        head4.textContent = 'Payout Overdue Alert';
+        sub4.textContent = 'Scheduled due date ' + dueDate + ' has elapsed';
+        meta4.innerHTML = '<span style="color:#DC2626; font-weight:600;">Immediate action required. Escalate to treasury.</span>';
+      } else if (status === 'Scheduled') {
+        dot4.className = 'timeline-dot';
+        head4.textContent = 'Payout Scheduled for Execution';
+        sub4.textContent = 'Batch execution queued for ' + dueDate;
+        meta4.textContent = 'Funds earmarked in corporate disbursement account.';
+      } else {
+        dot4.className = 'timeline-dot active';
+        head4.textContent = 'Pending Treasury Settlement';
+        sub4.textContent = 'Payment due on ' + dueDate;
+        meta4.textContent = 'Ready for immediate manual or batch disbursement.';
+      }
+
+      document.getElementById('historyModal').classList.add('active');
+    }
+
+    function openReceiptModal(bookingId, merchant, amount, date) {
+      document.getElementById('rcptBooking').textContent = bookingId;
+      document.getElementById('rcptMerchant').textContent = merchant;
+      document.getElementById('rcptAmount').textContent = amount;
+      document.getElementById('rcptDate').textContent = date;
+      document.getElementById('receiptModal').classList.add('active');
+    }
+
+    function openScheduleModal(bookingId, merchant, dueDate, amount) {
+      openHistoryModal(bookingId, merchant, amount, 'Scheduled', dueDate, '—');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    // Process Disbursement
+    function confirmDisbursement() {
+      if (activeDisburseRow) {
+        const bookingId = document.getElementById('modalBookingId').textContent;
+        const merchant = document.getElementById('modalMerchantName').textContent;
+        const amount = document.getElementById('modalPayoutAmount').textContent;
+        const todayStr = '27-10-2026';
+
+        // Update row to Completed
+        activeDisburseRow.setAttribute('data-status', 'completed');
+        
+        // Update status badge cell
+        const statusCell = activeDisburseRow.cells[8];
+        statusCell.innerHTML = '<span class="badge badge-completed">Completed</span>';
+
+        // Update Payout Date cell
+        const payoutDateCell = activeDisburseRow.cells[10];
+        payoutDateCell.className = 'text-dark';
+        payoutDateCell.textContent = todayStr;
+
+        // Update actions cell
+        const actionsCell = activeDisburseRow.cells[11];
+        actionsCell.innerHTML = `
+          <div class="actions-cell">
+            <button class="btn-payout-secondary" onclick="openReceiptModal('${bookingId}', '${merchant}', '${amount}', '${todayStr}')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              Receipt
+            </button>
+            <button class="btn-payout-history" title="View Payout History" onclick="openHistoryModal('${bookingId}', '${merchant}', '${amount}', 'Completed', '${todayStr}', '${todayStr}')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              History
+            </button>
+          </div>
+        `;
+
+        closeModal('payoutModal');
+        alert(`Disbursement of ${amount} to ${merchant} processed successfully via Online Banking!`);
+      }
+    }
+
+    // Close modal on click outside
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
+

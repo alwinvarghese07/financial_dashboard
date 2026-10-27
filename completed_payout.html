@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=consolidated_revenue.html?filter=completed">
+  <title>Redirecting to Consolidated Revenue Dashboard...</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #F8F9FA; font-family: Inter, sans-serif;">
+  <div style="background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 32px; max-width: 480px; text-align: center;">
+    <div style="width: 48px; height: 48px; background: #ECFDF5; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+    </div>
+    <h2 style="font-size: 18px; font-weight: 700; color: #111827; margin-bottom: 8px;">Completed Payout Page Deprecated (BR-10)</h2>
+    <p style="font-size: 13px; color: #4B5563; line-height: 1.5; margin-bottom: 20px;">
+      As required by the Finance Dashboard Enhancements, the separate Completed Payout page has been retired and consolidated into the single unified <strong>Consolidated Revenue Dashboard</strong> with full status filtering.
+    </p>
+    <a href="consolidated_revenue.html?filter=completed" class="btn-payout-action" style="text-decoration: none; display: inline-block;">
+      Go to Consolidated Revenue &rarr;
+    </a>
+  </div>
+  <script>
+    window.location.href = "consolidated_revenue.html";
+  </script>
+</body>
+</html>

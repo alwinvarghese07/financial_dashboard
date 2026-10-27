@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Revenue — StayTransit Financial Admin</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="brand-logo" title="StayTransit"></a>
+        <button class="collapse-btn" title="Toggle Sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <div class="context-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Financial Administration</span>
+          <span class="context-tag">Console</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-primary" onclick="alert('Exporting revenue report...')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Export Summary</span>
+        </button>
+        <div class="user-profile-badge">
+          <div class="user-avatar">FA</div>
+          <div class="user-meta">
+            <span class="user-name">Finance Admin</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-wrapper">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-heading">Financial Admin</div>
+        <a href="index.html" class="nav-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+          <span>Daily Revenue</span>
+        </a>
+        <a href="consolidated_revenue.html" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          <span>Consolidated Revenue</span>
+        </a>
+        <a href="wallet_transaction.html" class="nav-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+            <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/>
+            <path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/>
+            <circle cx="18" cy="14" r="1"/>
+          </svg>
+          <span>Wallet Transaction</span>
+        </a>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content-area">
+        <!-- Page Title & Segmented Switcher -->
+        <div class="page-header-row">
+          <div class="page-title-group">
+            <h1>Daily Revenue</h1>
+            <p>Monitor merchant and partner checkout revenues, tax breakdowns, and net settlements.</p>
+          </div>
+          <div class="segmented-control">
+            <button class="segment-btn active" id="tab-merchant">
+              <span>Merchant</span>
+              <span class="segment-badge">42</span>
+            </button>
+            <button class="segment-btn" id="tab-partner">
+              <span>Partner</span>
+              <span class="segment-badge">18</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Executive Metric Summary (Clean White Cards) -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-card-top">
+              <span class="kpi-label">Total Bookings</span>
+              <div class="kpi-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value">42</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 18 Q 18 16, 36 10 T 72 4" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill up">↑ 14.2%</span>
+              <span>vs previous cycle</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-card-top">
+              <span class="kpi-label">Grand Total</span>
+              <div class="kpi-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="1" x2="12" y2="23"/>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value">$2,896.22</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 20 Q 20 18, 40 8 T 72 3" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill neutral">10 properties</span>
+              <span>gross revenue</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-card-top">
+              <span class="kpi-label">Total Refunds</span>
+              <div class="kpi-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value">$190.99</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 6 Q 24 10, 48 18 T 72 16" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill down">1 claim</span>
+              <span>processed refund</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-card-top">
+              <span class="kpi-label">Adjusted Total</span>
+              <div class="kpi-card-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-card-middle">
+              <span class="kpi-value">$2,705.23</span>
+              <svg class="kpi-sparkline" viewBox="0 0 72 24" fill="none">
+                <path d="M0 16 Q 25 14, 45 8 T 72 2" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="kpi-card-bottom">
+              <span class="kpi-trend-pill up">93.4%</span>
+              <span>net retention</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter and Search Toolbar -->
+        <div class="filter-bar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" placeholder="Search by property, airport, POC email, service type...">
+          </div>
+          <button class="date-range-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B5563" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>05-10-2026 - 27-10-2026</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <button class="filter-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            <span>Filters</span>
+            <span class="filter-badge">3</span>
+          </button>
+        </div>
+
+        <!-- Data Table Card -->
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>CHECKOUT DATE</th>
+                  <th>PROPERTY NAME</th>
+                  <th>AIRPORT</th>
+                  <th>SERVICE TYPE</th>
+                  <th>POC EMAIL</th>
+                  <th style="text-align: center;">TOTAL BOOKING</th>
+                  <th style="text-align: right;">GRAND TOTAL</th>
+                  <th style="text-align: right;">REFUND</th>
+                  <th style="text-align: right;">ADJUSTED TOTAL</th>
+                  <th style="text-align: right;">PACKAGE TAX</th>
+                  <th style="text-align: right;">GLOBAL TAX</th>
+                  <th style="text-align: right;">NET REVENUE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill amber"></span>
+                      <span class="text-dark">05-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Dubai Lay off Landside</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-info">Lounge</span></td>
+                  <td>hari@sharklasers.com</td>
+                  <td style="text-align: center;" class="text-bold">2</td>
+                  <td style="text-align: right;" class="text-dark">$589.40</td>
+                  <td style="text-align: right; color: #DC2626; font-weight: 600;">$190.99</td>
+                  <td style="text-align: right;" class="text-bold">$398.41</td>
+                  <td style="text-align: right;">$16.91</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$14.50</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$381.50</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill blue"></span>
+                      <span class="text-dark">05-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Holiday Inn Express Dubai Airport</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-neutral">Hourly Stays</span></td>
+                  <td>alwin.ags@itprofound.com</td>
+                  <td style="text-align: center;" class="text-bold">1</td>
+                  <td style="text-align: right;" class="text-dark">$27.45</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$27.45</td>
+                  <td style="text-align: right;">$1.32</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$1.20</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$26.13</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill green"></span>
+                      <span class="text-dark">05-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Lounge Over Dubai</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-info">Lounge</span></td>
+                  <td>sanju@sharklasers.com</td>
+                  <td style="text-align: center;" class="text-bold">1</td>
+                  <td style="text-align: right;" class="text-dark">$155.55</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$155.55</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$6.50</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$155.55</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill purple"></span>
+                      <span class="text-dark">06-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Le Méridien Dubai Hotel</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-neutral">Hourly Stays</span></td>
+                  <td>xiyoy80682@mogash.com</td>
+                  <td style="text-align: center;" class="text-bold">2</td>
+                  <td style="text-align: right;" class="text-dark">$147.66</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$147.66</td>
+                  <td style="text-align: right;">$9.66</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$5.80</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$138.00</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill amber"></span>
+                      <span class="text-dark">07-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Dubai International Hotel</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-neutral">Hourly Stays</span></td>
+                  <td>rishiraj.bg@itprofound.com</td>
+                  <td style="text-align: center;" class="text-bold">2</td>
+                  <td style="text-align: right;" class="text-dark">$66.98</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$66.98</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$3.20</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$66.98</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill red"></span>
+                      <span class="text-dark">07-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Dubai Lay off Landside</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-info">Lounge</span></td>
+                  <td>hari@sharklasers.com</td>
+                  <td style="text-align: center;" class="text-bold">3</td>
+                  <td style="text-align: right;" class="text-dark">$674.10</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$674.10</td>
+                  <td style="text-align: right;">$44.10</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$18.50</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$630.00</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill purple"></span>
+                      <span class="text-dark">07-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Le Méridien Dubai Hotel</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-neutral">Hourly Stays</span></td>
+                  <td>xiyoy80682@mogash.com</td>
+                  <td style="text-align: center;" class="text-bold">1</td>
+                  <td style="text-align: right;" class="text-dark">$53.50</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$53.50</td>
+                  <td style="text-align: right;">$3.50</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$2.40</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$50.00</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill green"></span>
+                      <span class="text-dark">07-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Sri Krishna Airport Services</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-info">Lounge</span></td>
+                  <td>merchant@sharklasers.com</td>
+                  <td style="text-align: center;" class="text-bold">6</td>
+                  <td style="text-align: right;" class="text-dark">$359.44</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$359.44</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$12.00</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$359.44</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill blue"></span>
+                      <span class="text-dark">08-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Ahlan Lounge @ Gate C13</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-info">Lounge</span></td>
+                  <td>jithendra.ag@itprofound.com</td>
+                  <td style="text-align: center;" class="text-bold">1</td>
+                  <td style="text-align: right;" class="text-dark">$228.05</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$228.05</td>
+                  <td style="text-align: right;">$20.73</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$9.50</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$207.32</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="cell-with-accent">
+                      <span class="accent-pill amber"></span>
+                      <span class="text-dark">08-10-2026</span>
+                    </div>
+                  </td>
+                  <td class="text-dark">Dubai International Hotel</td>
+                  <td>Dubai, DXB</td>
+                  <td><span class="badge badge-neutral">Hourly Stays</span></td>
+                  <td>rishiraj.bg@itprofound.com</td>
+                  <td style="text-align: center;" class="text-bold">3</td>
+                  <td style="text-align: right;" class="text-dark">$100.47</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold">$100.47</td>
+                  <td style="text-align: right;">$0.00</td>
+                  <td style="text-align: right;" class="text-bold" title="Global Tax configured">$4.80</td>
+                  <td style="text-align: right;" class="text-bold text-dark">$100.47</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div class="table-footer">
+            <span class="showing-entries">Showing 1 - 10 of 42 records</span>
+            <div class="pagination-controls">
+              <div class="rows-dropdown">
+                <span>Rows</span>
+                <strong>10</strong>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </div>
+              <div class="page-buttons">
+                <button class="page-btn bordered" disabled>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"/>
+                  </svg>
+                </button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <button class="page-btn bordered">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
