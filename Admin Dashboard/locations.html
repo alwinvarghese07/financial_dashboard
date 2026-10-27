@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locations — StayTransit Administration</title>
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="brand-logo" title="StayTransit"></a>
+        <button class="collapse-btn" title="Toggle Sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <div class="context-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Administration Console</span>
+          <span class="context-tag">ADMIN</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="../index.html" class="btn-secondary" title="Switch to Finance Dashboard" style="font-size: 12px; padding: 6px 12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 3 21 3 21 9"/>
+            <polyline points="10 14 21 3"/>
+          </svg>
+          <span>Finance Dashboard</span>
+        </a>
+        <div class="user-profile-badge">
+          <div class="admin-avatar">AE</div>
+          <div class="user-meta">
+            <span class="user-name">Operations Admin</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-wrapper">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-heading">Navigation</div>
+        <a href="index.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Live Tracking</span>
+        </a>
+        <a href="merchant_management.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <span>Merchant Management</span>
+        </a>
+
+        <!-- Partner Group -->
+        <div class="nav-group">
+          <div class="nav-group-header " onclick="toggleNavGroup(this)">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span>Partner</span>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="nav-sub-menu" style="display: none;">
+            <a href="partner_agents.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>Agents</span>
+            </a>
+            <a href="partner_corporate.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M13 21V3l6 4v14"/></svg>
+              <span>Corporate</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="locations.html" class="nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Locations</span>
+        </a>
+        <a href="service_rules.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Service Rules</span>
+        </a>
+        <a href="amenities.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Amenities</span>
+        </a>
+        <a href="audit_trail.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="2"/></svg>
+          <span>Audit Trail</span>
+        </a>
+        <a href="support_messages.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Support Messages</span>
+        </a>
+        <a href="fees_management.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          <span>Fees</span>
+        </a>
+        <a href="coupon_codes.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+          <span>Coupon Codes</span>
+        </a>
+
+        <!-- Domain Values Group -->
+        <div class="nav-group">
+          <div class="nav-group-header " onclick="toggleNavGroup(this)">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Domain Values</span>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="nav-sub-menu" style="display: none;">
+            <a href="domain_service_type.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
+              <span>Service Type</span>
+            </a>
+            <a href="domain_service_assets.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              <span>Service Assets</span>
+            </a>
+            <a href="domain_sales_tax.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Sales Tax</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Legal Group -->
+        <div class="nav-group">
+          <div class="nav-group-header " onclick="toggleNavGroup(this)">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <span>Legal</span>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="nav-sub-menu" style="display: none;">
+            <a href="legal_privacy_policy.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Privacy Policy</span>
+            </a>
+            <a href="legal_terms_conditions.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+              <span>Terms & Conditions</span>
+            </a>
+            <a href="legal_user_agreement.html" class="nav-sub-item ">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>
+              <span>User Agreement</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="reports_management.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Reports Management</span>
+        </a>
+        <a href="feedback_management.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Feedback Management</span>
+        </a>
+        <a href="system_settings.html" class="nav-link ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>System Settings</span>
+        </a>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="content-area">
+
+    <div class="header-action-row">
+      <div class="page-title-group">
+        <h1 class="page-title">Service Locations</h1>
+        <p class="page-subtitle">Configure operational airport hubs, metropolitan areas, and geo-fenced transit regions.</p>
+      </div>
+      <div class="action-btn-group">
+        <button class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Create Location</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="search-toolbar">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input" placeholder="Search by Location Name, Code, City, or Country">
+      </div>
+      <div class="toolbar-controls">
+        <select class="custom-select">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+        <button class="btn-reset" title="Reset Filters">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          <span>Reset</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Location Name</th>
+            <th>IATA / Code</th>
+            <th>City</th>
+            <th>State / Province</th>
+            <th>Country</th>
+            <th>Status</th>
+            <th style="text-align: right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: 500;">Los Angeles International Airport</td>
+            <td><span class="badge" style="background: #F3F4F6; color: #1F2937; font-weight: 600;">LAX</span></td>
+            <td>Los Angeles</td>
+            <td>California</td>
+            <td>United States</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td class="action-cell">
+              <button class="icon-btn" title="Edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: 500;">John F. Kennedy International Airport</td>
+            <td><span class="badge" style="background: #F3F4F6; color: #1F2937; font-weight: 600;">JFK</span></td>
+            <td>New York</td>
+            <td>New York</td>
+            <td>United States</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td class="action-cell">
+              <button class="icon-btn" title="Edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: 500;">London Heathrow Airport</td>
+            <td><span class="badge" style="background: #F3F4F6; color: #1F2937; font-weight: 600;">LHR</span></td>
+            <td>London</td>
+            <td>Greater London</td>
+            <td>United Kingdom</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td class="action-cell">
+              <button class="icon-btn" title="Edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: 500;">Tokyo Haneda Airport</td>
+            <td><span class="badge" style="background: #F3F4F6; color: #1F2937; font-weight: 600;">HND</span></td>
+            <td>Tokyo</td>
+            <td>Tokyo</td>
+            <td>Japan</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td class="action-cell">
+              <button class="icon-btn" title="Edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: 500;">Dubai International Airport</td>
+            <td><span class="badge" style="background: #F3F4F6; color: #1F2937; font-weight: 600;">DXB</span></td>
+            <td>Dubai</td>
+            <td>Dubai</td>
+            <td>United Arab Emirates</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td class="action-cell">
+              <button class="icon-btn" title="Edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: 500;">Singapore Changi Airport</td>
+            <td><span class="badge" style="background: #F3F4F6; color: #1F2937; font-weight: 600;">SIN</span></td>
+            <td>Singapore</td>
+            <td>Singapore</td>
+            <td>Singapore</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td class="action-cell">
+              <button class="icon-btn" title="Edit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination-footer">
+        <div class="pagination-info">Showing 1 to 6 of 42 entries</div>
+        <div class="pagination-controls">
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">Next</button>
+        </div>
+      </div>
+    </div>
+    
+      </main>
+    </div>
+  </div>
+
+  <script>
+    function toggleNavGroup(el) {
+      el.classList.toggle('open');
+      const submenu = el.nextElementSibling;
+      if (submenu) {
+        submenu.style.display = submenu.style.display === 'none' ? 'flex' : 'none';
+      }
+    }
+
+    function switchTab(btn, tabId) {
+      const container = btn.closest('.top-tab-ribbon').parentElement;
+      container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const pane = document.getElementById(tabId);
+      if (pane) pane.classList.add('active');
+    }
+
+    
+  </script>
+</body>
+</html>
