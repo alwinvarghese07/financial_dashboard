@@ -21,5 +21,3 @@ python -m http.server 3000
 # Or using Node.js / npx
 npx serve -l 3000 .
 ```
-
-Open [http://localhost:3000](http://localhost:3000) to view the console.
